@@ -5,6 +5,8 @@ from helper_ply import read_ply
 from helper_tool import ConfigS3DIS as cfg
 from helper_tool import DataProcessing as DP
 from helper_tool import Plot
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = "0"
 import tensorflow as tf
 import numpy as np
 import time, pickle, argparse, glob, os
@@ -13,7 +15,7 @@ import time, pickle, argparse, glob, os
 class S3DIS:
     def __init__(self, test_area_idx):
         self.name = 'S3DIS'
-        self.path = '/data/S3DIS'
+        self.path = 'data/S3DIS'
         self.label_to_names = {0: 'ceiling',
                                1: 'floor',
                                2: 'wall',
