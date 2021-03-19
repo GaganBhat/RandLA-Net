@@ -7,7 +7,8 @@ from helper_tool import DataProcessing as DP
 from helper_tool import Plot
 import os
 os.environ['CUDA_VISIBLE_DEVICES'] = "0"
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
 import time, pickle, argparse, glob, os
 
