@@ -4,7 +4,8 @@ from helper_tool import Plot
 from os.path import join
 from RandLANet import Network
 from tester_SemanticKITTI import ModelTester
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
 import os, argparse, pickle
 
@@ -12,7 +13,7 @@ import os, argparse, pickle
 class SemanticKITTI:
     def __init__(self, test_id):
         self.name = 'SemanticKITTI'
-        self.dataset_path = '/data/semantic_kitti/dataset/sequences_0.06'
+        self.dataset_path = 'data/semantic_kitti/dataset/sequences_0.06'
         self.label_to_names = {0: 'unlabeled',
                                1: 'car',
                                2: 'bicycle',
@@ -42,6 +43,7 @@ class SemanticKITTI:
 
         self.seq_list = np.sort(os.listdir(self.dataset_path))
         self.test_scan_number = str(test_id)
+        print(self.test_scan_number)
         self.train_list, self.val_list, self.test_list = DP.get_file_list(self.dataset_path,
                                                                           self.test_scan_number)
         self.train_list = DP.shuffle_list(self.train_list)
@@ -192,7 +194,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--gpu', type=int, default=0, help='the number of GPUs to use [default: 0]')
     parser.add_argument('--mode', type=str, default='train', help='options: train, test, vis')
-    parser.add_argument('--test_area', type=str, default='14', help='options: 08, 11,12,13,14,15,16,17,18,19,20,21')
+    parser.add_argument('--test_area', type=str, default='03', help='options: 08, 11,12,13,14,15,16,17,18,19,20,21')
     parser.add_argument('--model_path', type=str, default='None', help='pretrained model path')
     FLAGS = parser.parse_args()
 

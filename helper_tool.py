@@ -135,9 +135,10 @@ class DataProcessing:
         seq_list = np.sort(os.listdir(dataset_path))
 
         train_file_list = []
-        test_file_list = []
-        val_file_list = []
+        test_file_list = [[]]
+        val_file_list = [[]]
         for seq_id in seq_list:
+            print(seq_id)
             seq_path = join(dataset_path, seq_id)
             pc_path = join(seq_path, 'velodyne')
             if seq_id == '08':
