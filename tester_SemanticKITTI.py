@@ -2,7 +2,8 @@ from os import makedirs
 from os.path import exists, join, isfile, dirname, abspath
 from helper_tool import DataProcessing as DP
 from sklearn.metrics import confusion_matrix
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
 import yaml
 import pickle
@@ -59,9 +60,11 @@ class ModelTester:
 
         # Initialise iterator with train data
         self.sess.run(dataset.test_init_op)
+        
         self.test_probs = [np.zeros(shape=[len(l), model.config.num_classes], dtype=np.float16)
                            for l in dataset.possibility]
 
+        
         test_path = join('test', 'sequences')
         makedirs(test_path) if not exists(test_path) else None
         save_path = join(test_path, dataset.test_scan_number, 'predictions')
@@ -77,6 +80,7 @@ class ModelTester:
                        model.inputs['cloud_inds'])
                 stacked_probs, labels, point_inds, cloud_inds = self.sess.run(ops, {model.is_training: False})
                 if self.idx % 10 == 0:
+
                     print('step ' + str(self.idx))
                 self.idx += 1
                 stacked_probs = np.reshape(stacked_probs, [model.config.val_batch_size,
