@@ -20,7 +20,7 @@ grid_size = 0.06
 dataset_path = 'data/semantic_kitti/dataset/sequences'
 output_path = 'data/semantic_kitti/dataset/sequences' + '_' + str(grid_size)
 seq_list = np.sort(os.listdir(dataset_path))
-
+print(seq_list)
 for seq_id in seq_list:
     print('sequence' + seq_id + ' start')
     seq_path = join(dataset_path, seq_id)
@@ -31,7 +31,7 @@ for seq_id in seq_list:
     os.makedirs(seq_path_out) if not exists(seq_path_out) else None
     os.makedirs(pc_path_out) if not exists(pc_path_out) else None
     os.makedirs(KDTree_path_out) if not exists(KDTree_path_out) else None
-
+    print("Seq ID -" + seq_id)
     if int(seq_id) < 11:
         label_path = join(seq_path, 'labels')
         label_path_out = join(seq_path_out, 'labels')
