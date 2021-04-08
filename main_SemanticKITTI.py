@@ -65,6 +65,7 @@ class SemanticKITTI:
             num_per_epoch = int(len(self.test_list) / cfg.val_batch_size) * cfg.val_batch_size * 4
             path_list = self.test_list
             for test_file_name in path_list:
+                print("Path List - " + test_file_name)
                 points = np.load(test_file_name)
                 self.possibility += [np.random.rand(points.shape[0]) * 1e-3]
                 self.min_possibility += [float(np.min(self.possibility[-1]))]
@@ -194,7 +195,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--gpu', type=int, default=0, help='the number of GPUs to use [default: 0]')
     parser.add_argument('--mode', type=str, default='train', help='options: train, test, vis')
-    parser.add_argument('--test_area', type=str, default='03', help='options: 08, 11,12,13,14,15,16,17,18,19,20,21')
+    parser.add_argument('--test_area', type=str, default='14', help='options: 08, 11,12,13,14,15,16,17,18,19,20,21')
     parser.add_argument('--model_path', type=str, default='None', help='pretrained model path')
     FLAGS = parser.parse_args()
 
