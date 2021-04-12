@@ -139,9 +139,11 @@ class DataProcessing:
         val_file_list = [[]]
         for seq_id in seq_list:
             print(seq_id)
+            if seq_id == '.fr-5YuhAo':
+                continue;
             seq_path = join(dataset_path, seq_id)
             pc_path = join(seq_path, 'velodyne')
-            if seq_id == '08':
+            if seq_id == '08' or seq_id == '03':
                 val_file_list.append([join(pc_path, f) for f in np.sort(os.listdir(pc_path))])
                 if seq_id == test_scan_num:
                     test_file_list.append([join(pc_path, f) for f in np.sort(os.listdir(pc_path))])

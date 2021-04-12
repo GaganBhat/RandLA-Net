@@ -117,7 +117,7 @@ class ModelTester:
                                 proj_inds = pickle.load(f)
                         probs = self.test_probs[j][proj_inds[0], :]
                         pred = np.argmax(probs, 1)
-                        if dataset.test_scan_number == '08':
+                        if dataset.test_scan_number == '08' or dataset.test_scan_number == '03':
                             label_path = join(dirname(dataset.dataset_path), 'sequences', dataset.test_scan_number,
                                               'labels')
                             label_file = join(label_path, str(frame) + '.label')
@@ -145,7 +145,7 @@ class ModelTester:
                             pred = pred.astype(np.uint32)
                             pred.tofile(store_path)
                     log_out(str(dataset.test_scan_number) + ' finished', self.Log_file)
-                    if dataset.test_scan_number=='08':
+                    if dataset.test_scan_number =='08' or dataset.test_scan_number=='03':
                         iou_list = []
                         for n in range(0, num_classes, 1):
                             iou = true_positive_classes[n] / float(

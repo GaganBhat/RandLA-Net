@@ -39,10 +39,11 @@ class SemanticKITTI:
         self.label_to_idx = {l: i for i, l in enumerate(self.label_values)}
         self.ignored_labels = np.sort([0])
 
-        self.val_split = '08'
+        self.val_split = '03'
 
         self.seq_list = np.sort(os.listdir(self.dataset_path))
         self.test_scan_number = str(test_id)
+        print("Dataset Path = " + str(self.dataset_path) + " Seq List = " + str(self.seq_list) + " test scan num = " + str(self.test_scan_number))
         print(self.test_scan_number)
         self.train_list, self.val_list, self.test_list = DP.get_file_list(self.dataset_path,
                                                                           self.test_scan_number)

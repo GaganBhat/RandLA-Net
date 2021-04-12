@@ -48,7 +48,7 @@ for seq_id in seq_list:
             np.save(join(label_path_out, scan_id)[:-4], sub_labels)
             with open(KDTree_save, 'wb') as f:
                 pickle.dump(search_tree, f)
-            if seq_id == '08':
+            if seq_id == '03' or seq_id == '08':
                 proj_path = join(seq_path_out, 'proj')
                 os.makedirs(proj_path) if not exists(proj_path) else None
                 proj_inds = np.squeeze(search_tree.query(points, return_distance=False))

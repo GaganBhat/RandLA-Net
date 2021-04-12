@@ -8,3 +8,15 @@ Epoch   1, end. Min possibility = 0.0
 Epoch   2, end. Min possibility = 0.5
  Min possibility = 0.5
 14 finished
+Epoch   0, end. Min possibility = 0.0
+Epoch   1, end. Min possibility = 0.1
+Epoch   2, end. Min possibility = 0.6
+ Min possibility = 0.6
+03 finished
+Epoch   0, end. Min possibility = 0.0
+Epoch   1, end. Min possibility = 0.1
+Epoch   2, end. Min possibility = 0.6
+ Min possibility = 0.6
+03 finished
+eval accuracy: 0.922769721546464
+mean IOU:nan
