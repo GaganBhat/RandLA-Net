@@ -23,7 +23,7 @@ class ConfigSemanticKITTI:
     sub_grid_size = 0.06  # preprocess_parameter
 
     batch_size = 6  # batch_size during training
-    val_batch_size = 12  # batch_size during validation and test
+    val_batch_size = 6  # batch_size during validation and test
     train_steps = 500  # Number of steps per epochs
     val_steps = 100  # Number of validation steps per epoch
 
@@ -150,9 +150,11 @@ class DataProcessing:
             elif int(seq_id) >= 11 and seq_id == test_scan_num:
                 test_file_list.append([join(pc_path, f) for f in np.sort(os.listdir(pc_path))])
             elif seq_id in ['00', '01', '02', '03', '04', '05', '06', '07', '09', '10']:
+                print("Test1")
                 train_file_list.append([join(pc_path, f) for f in np.sort(os.listdir(pc_path))])
-
-        train_file_list = np.concatenate(train_file_list, axis=0)
+         
+        # train_file_list = np.concatenate(train_file_list, axis=0)
+        train_file_list = []
         val_file_list = np.concatenate(val_file_list, axis=0)
         test_file_list = np.concatenate(test_file_list, axis=0)
         return train_file_list, val_file_list, test_file_list

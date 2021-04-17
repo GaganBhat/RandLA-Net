@@ -47,7 +47,7 @@ class SemanticKITTI:
         print(self.test_scan_number)
         self.train_list, self.val_list, self.test_list = DP.get_file_list(self.dataset_path,
                                                                           self.test_scan_number)
-        self.train_list = DP.shuffle_list(self.train_list)
+        # self.train_list = DP.shuffle_list(self.train_list)
         self.val_list = DP.shuffle_list(self.val_list)
 
         self.possibility = []
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     test_area = FLAGS.test_area
     dataset = SemanticKITTI(test_area)
     dataset.init_input_pipeline()
-
+    print("finished initializing")
     if Mode == 'train':
         model = Network(dataset, cfg)
         model.train(dataset)
@@ -234,7 +234,7 @@ if __name__ == '__main__':
 
         with tf.Session() as sess:
             sess.run(tf.global_variables_initializer())
-            sess.run(dataset.train_init_op)
+            # sess.run(dataset.train_init_op)
             while True:
                 flat_inputs = sess.run(dataset.flat_inputs)
                 pc_xyz = flat_inputs[0]
