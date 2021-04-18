@@ -58,6 +58,8 @@ class SemanticKITTI:
         if split == 'training':
             num_per_epoch = int(len(self.train_list) / cfg.batch_size) * cfg.batch_size
             path_list = self.train_list
+            print("Bruh Path List - ", path_list)
+        
         elif split == 'validation':
             num_per_epoch = int(len(self.val_list) / cfg.val_batch_size) * cfg.val_batch_size
             cfg.val_steps = int(len(self.val_list) / cfg.batch_size)
@@ -70,7 +72,6 @@ class SemanticKITTI:
                 points = np.load(test_file_name)
                 self.possibility += [np.random.rand(points.shape[0]) * 1e-3]
                 self.min_possibility += [float(np.min(self.possibility[-1]))]
-
         def spatially_regular_gen():
             # Generator loop
             for i in range(num_per_epoch):
@@ -103,6 +104,7 @@ class SemanticKITTI:
         gen_func = spatially_regular_gen
         gen_types = (tf.float32, tf.int32, tf.int32, tf.int32)
         gen_shapes = ([None, 3], [None], [None], [None])
+
 
         return gen_func, gen_types, gen_shapes
 
@@ -174,6 +176,7 @@ class SemanticKITTI:
         self.batch_train_data = self.train_data.batch(cfg.batch_size)
         self.batch_val_data = self.val_data.batch(cfg.val_batch_size)
         self.batch_test_data = self.test_data.batch(cfg.val_batch_size)
+        # print("Batch Train Data = " + self.train_data)
 
         map_func = self.get_tf_mapping2()
 
@@ -187,6 +190,7 @@ class SemanticKITTI:
 
         iter = tf.data.Iterator.from_structure(self.batch_train_data.output_types, self.batch_train_data.output_shapes)
         self.flat_inputs = iter.get_next()
+        print("Flat Inputs ", self.flat_inputs)
         self.train_init_op = iter.make_initializer(self.batch_train_data)
         self.val_init_op = iter.make_initializer(self.batch_val_data)
         self.test_init_op = iter.make_initializer(self.batch_test_data)
@@ -234,7 +238,9 @@ if __name__ == '__main__':
 
         with tf.Session() as sess:
             sess.run(tf.global_variables_initializer())
-            # sess.run(dataset.train_init_op)
+            print("Printing dataset")
+            print(dataset.train_init_op)
+            sess.run(dataset.train_init_op)
             while True:
                 flat_inputs = sess.run(dataset.flat_inputs)
                 pc_xyz = flat_inputs[0]
